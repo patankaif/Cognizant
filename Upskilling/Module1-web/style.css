@@ -1,0 +1,40 @@
+body{
+    font-family: Arial, sans-serif;
+    padding:20px;
+    background:#f4f4f4;
+}
+
+.controls{
+    margin-bottom:20px;
+}
+
+input,
+select,
+button{
+    padding:10px;
+    margin:5px;
+}
+
+#loading{
+    display:none;
+    font-weight:bold;
+}
+
+.event-card{
+    background:white;
+    padding:15px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.error{
+    color:red;
+    display:block;
+    margin-bottom:10px;
+}
+
+#message{
+    margin-top:15px;
+    font-weight:bold;
+}
