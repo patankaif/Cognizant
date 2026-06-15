@@ -1,0 +1,32 @@
+// ============================================================
+// _custom-variables.scss
+// Bootstrap 5 Exercise 19: Customization with Sass
+// ============================================================
+//
+// SETUP INSTRUCTIONS:
+// 1. npm install bootstrap sass --save-dev
+// 2. Create a main.scss file:
+//
+//    @import "custom-variables";
+//    @import "../node_modules/bootstrap/scss/bootstrap";
+//
+// 3. Compile with:
+//    npx sass main.scss css/bootstrap-custom.css
+//
+// 4. Link css/bootstrap-custom.css in your HTML instead of the CDN.
+// ============================================================
+
+// Override primary brand color (used for navbar, buttons, links, etc.)
+$primary:   #ff6b35; // vibrant community-orange
+$secondary: #2b2d42;
+$success:   #2a9d8f;
+$warning:   #ffb703;
+$danger:    #e63946;
+
+// Override default border radius for cards, buttons, inputs
+$border-radius:       0.6rem;
+$border-radius-lg:    0.9rem;
+$border-radius-sm:    0.4rem;
+
+// Typography
+$font-family-sans-serif: 'Poppins', system-ui, -apple-system, sans-serif;

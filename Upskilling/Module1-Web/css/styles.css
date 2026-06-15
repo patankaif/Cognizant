@@ -1,0 +1,205 @@
+/* ============================================================
+   styles.css - Local Community Event Portal
+   Covers CSS3 Exercises 2-11
+   ============================================================ */
+
+/* ---------- Reset (Selectors Playground - universal selector) ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ---------- Element selector: all h2 ---------- */
+h2 {
+  font-family: 'Poppins', sans-serif;
+  color: #212529;
+}
+
+/* ---------- Section title styling (used across sections) ---------- */
+.section-title {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid #0d6efd;
+  display: inline-block;
+}
+
+/* ---------- ID selector example ---------- */
+#welcomeBanner {
+  background-color: #0d6efd; /* fallback, overridden inline too */
+  border-radius: 0.75rem;
+}
+
+/* ---------- Class selector: event cards ---------- */
+.eventCard {
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background-color: #ffffff;
+}
+.eventCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* enlarged image on double-click toggle */
+.img-enlarged {
+  transform: scale(1.6);
+  transition: transform 0.3s ease;
+  z-index: 10;
+  position: relative;
+}
+
+/* ---------- Grouping selector ---------- */
+h3, p {
+  line-height: 1.6;
+}
+
+/* ---------- Highlight class ---------- */
+.highlight {
+  background-color: #fff3cd;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+/* ---------- Hero section: gradient background ---------- */
+.hero-section {
+  background: linear-gradient(135deg, #0d6efd 0%, #6610f2 100%),
+              url('https://placehold.co/1600x500/0d6efd/ffffff?text=+') center/cover no-repeat;
+  background-blend-mode: multiply;
+  min-height: 60vh;
+}
+
+/* ---------- Link styling (pseudo-classes) ---------- */
+a:link {
+  color: #0d6efd;
+  text-decoration: none;
+}
+a:visited {
+  color: #6610f2;
+}
+a:hover {
+  color: #084298;
+  text-decoration: underline;
+}
+a:active {
+  color: #dc3545;
+}
+
+/* Footer links override to stay white */
+footer a:link,
+footer a:visited,
+footer a:hover,
+footer a:active {
+  color: #ffffff;
+}
+
+/* ---------- Lists: remove bullets in nav ---------- */
+.navbar-nav {
+  list-style: none;
+}
+.navbar-nav li {
+  padding: 0 0.25rem;
+}
+
+/* Generic list styling */
+#itemList li {
+  padding: 0.4rem 0.75rem;
+}
+
+/* ---------- Table styling / zebra striping ---------- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+table caption {
+  caption-side: top;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+table th,
+table td {
+  border: 1px solid #dee2e6;
+  padding: 0.6rem;
+  text-align: center;
+}
+table tbody tr:nth-child(even) {
+  background-color: #f1f3f5;
+}
+
+/* ---------- Box model demo ---------- */
+.box {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #495057;
+  border-radius: 6px;
+}
+
+/* outline example for highlighted form fields */
+.form-control:focus,
+.form-select:focus {
+  outline: 3px solid #ffc107;
+  outline-offset: 1px;
+}
+
+/* visibility vs display demo (not directly used, kept for reference) */
+.hidden-visibility {
+  visibility: hidden;
+}
+.hidden-display {
+  display: none;
+}
+
+/* ---------- Multi-column bulletin (CSS3 Ex.9) ---------- */
+.bulletin {
+  column-count: 1;
+  column-gap: 30px;
+  column-rule: 1px solid gray;
+  text-align: justify;
+}
+@media (min-width: 768px) {
+  .bulletin {
+    column-count: 2;
+  }
+}
+
+/* ---------- jQuery boxes ---------- */
+.box.bg-primary,
+.box.bg-success,
+.box.bg-warning {
+  display: inline-block;
+}
+
+/* ---------- Responsive Media Query (CSS3 Ex.10) ---------- */
+@media (max-width: 768px) {
+  .display-1 {
+    font-size: 2.5rem;
+  }
+  .hero-section h1 {
+    font-size: 1.8rem;
+  }
+  .navbar-nav {
+    text-align: center;
+  }
+}
+
+/* fixed footer positioning helper (Bootstrap Ex.16) */
+.position-fixed.bottom-0 {
+  z-index: 1030;
+}
+
+/* color box transition */
+#colorBox {
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+#hoverDiv {
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}

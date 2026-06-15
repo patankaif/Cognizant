@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Community Event Portal</title>
+
+  <!-- Bootstrap 5 CSS (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Merriweather:ital@0;1&display=swap" rel="stylesheet">
+
+  <!-- Internal style (Exercise: CSS3 #1 - internal style for body background) -->
+  <style>
+    body {
+      background-color: #f5f7fa;
+    }
+  </style>
+
+  <!-- External stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ============ NAVIGATION (HTML5 Ex.2, Bootstrap Ex.10) ============ -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#home">
+        <i class="bi bi-calendar-event"></i> Community Portal
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
+          <li class="nav-item"><a class="nav-link" href="#feedback">Feedback</a></li>
+          <li class="nav-item"><a class="nav-link" href="#geo">Find Nearby</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="help.html" target="_blank">Help <i class="bi bi-box-arrow-up-right"></i></a></li>
+        </ul>
+        <form class="d-flex ms-lg-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search events" aria-label="Search">
+          <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HERO / WELCOME BANNER (HTML5 Ex.3) ============ -->
+  <header id="home" class="hero-section text-white d-flex align-items-center" style="margin-top:56px;">
+    <div class="container py-5">
+      <div id="welcomeBanner" class="p-4 rounded-3" style="background-color:#0d6efd;">
+        <h1 class="display-4 fw-bold">Welcome back, Resident!</h1>
+        <p class="lead mb-1">
+          Discover and join events happening around your city.
+          <span style="color:red; font-weight:bold;">🔥 Special Offer: Early registrations get a free welcome kit!</span>
+        </p>
+        <p class="highlight">Don't miss the Tech Innovators Meetup this June!</p>
+        <a href="#events" class="btn btn-light btn-lg mt-2">Browse Events <i class="bi bi-arrow-right"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ TYPOGRAPHY SHOWCASE (Bootstrap Ex.7) ============ -->
+  <section class="container py-4">
+    <h2 class="section-title">Typography Showcase</h2>
+    <p class="display-1">Display 1</p>
+    <p class="lead">This is a lead paragraph introducing the portal's mission to connect communities.</p>
+    <p class="text-muted">Muted helper text used for secondary information.</p>
+    <p class="fw-bold">Bold important notices appear like this.</p>
+    <p class="text-uppercase">this text is uppercase</p>
+    <p class="text-lowercase">THIS TEXT IS LOWERCASE</p>
+    <p class="text-capitalize">this text is capitalized per word</p>
+    <p style="font-family:'Merriweather',serif; font-style:italic; letter-spacing:1px; line-height:1.8;">
+      Community events bring neighbors together, foster collaboration, and build lasting friendships across the city.
+    </p>
+  </section>
+
+  <!-- ============ EVENTS SECTION (JS dynamic rendering) ============ -->
+  <section id="events" class="container py-5">
+    <h2 class="section-title">Upcoming Events</h2>
+    <p class="text-muted">Filter events by category below. Cards are rendered dynamically with JavaScript.</p>
+
+    <div class="mb-3 d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+      <select id="categoryFilter" class="form-select w-auto">
+        <option value="all">All Categories</option>
+        <option value="Tech">Tech</option>
+        <option value="Music">Music</option>
+        <option value="Workshop">Workshop</option>
+      </select>
+      <input type="text" id="searchEvent" class="form-control w-auto" placeholder="Quick search by name (press a key)">
+    </div>
+
+    <div id="eventContainer" class="row g-4"></div>
+  </section>
+
+  <!-- ============ IMAGE GALLERY TABLE (HTML5 Ex.4) ============ -->
+  <section id="gallery" class="container py-5">
+    <h2 class="section-title">Past Event Gallery</h2>
+    <p class="text-muted">A multi-column "newspaper style" recap alongside an image gallery table.</p>
+
+    <div class="row">
+      <div class="col-lg-7">
+        <table class="table table-striped table-bordered text-center align-middle">
+          <caption>Highlights from our most recent community events</caption>
+          <tbody>
+            <tr>
+              <td>
+                <img src="https://placehold.co/200x140?text=Tech+Meetup" alt="Tech Innovators Meetup"
+                     title="Tech Innovators Meetup" class="img-thumbnail eventCard">
+                <p>Tech Innovators Meetup</p>
+              </td>
+              <td>
+                <img src="https://placehold.co/200x140?text=AI+Conference" alt="AI and ML Conference"
+                     title="AI & ML Conference" class="img-thumbnail eventCard"
+                     ondblclick="this.classList.toggle('img-enlarged')">
+                <p>AI &amp; ML Conference (double-click to enlarge)</p>
+              </td>
+              <td>
+                <img src="https://placehold.co/200x140?text=Frontend+Bootcamp" alt="Frontend Bootcamp"
+                     title="Frontend Development Bootcamp" class="img-thumbnail eventCard">
+                <p>Frontend Development Bootcamp</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-lg-5">
+        <h5>Community Bulletin</h5>
+        <div class="bulletin">
+          <p>
+            The community calendar is busier than ever this season. From technology meetups to
+            hands-on bootcamps, residents have multiple opportunities to learn, network, and grow.
+            Local organizers continue to push for greater participation, with feedback forms now
+            available after every session. The council encourages everyone to register early, as
+            seating is limited for in-person workshops. Stay tuned for the next newsletter, which
+            will include a full recap of this month's highlights and a sneak peek at next month's
+            lineup of exciting sessions across the city.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROFILE / CARD SECTION (Bootstrap Ex.11, Cards & spacing) ============ -->
+  <section class="container py-5">
+    <h2 class="section-title">Featured Organizers</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card shadow-sm h-100">
+          <img src="https://placehold.co/400x200?text=Alice+Johnson" class="card-img-top" alt="Alice Johnson">
+          <div class="card-body">
+            <h5 class="card-title">Alice Johnson</h5>
+            <p class="card-text">Organizer of the Tech Innovators Meetup, New York.</p>
+            <a href="#" class="btn btn-primary">View Profile</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card shadow-lg h-100 border-primary border-3 rounded-3">
+          <img src="https://placehold.co/400x200?text=Bob+Smith" class="card-img-top rounded-top" alt="Bob Smith">
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+              <h5 class="card-title">Bob Smith</h5>
+              <p class="card-text">Organizer of the Frontend Development Bootcamp, LA.</p>
+            </div>
+            <span class="badge bg-success rounded-pill">Active</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-gradient text-white h-100" style="background: linear-gradient(135deg,#212529,#495057);">
+          <div class="card-body">
+            <h5 class="card-title">Charlie Lee</h5>
+            <p class="card-text">Organizer of the AI &amp; ML Conference, Chicago.</p>
+            <a href="#" class="btn btn-outline-light">View Profile</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVENT REGISTRATION FORM (HTML5 Ex.5, Bootstrap Forms) ============ -->
+  <section id="register" class="container py-5">
+    <h2 class="section-title">Register for an Event</h2>
+    <form id="registrationForm" class="row g-3" novalidate>
+      <div class="col-md-6">
+        <label for="fullName" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="fullName" placeholder="Jane Doe" required autofocus>
+      </div>
+
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="jane@example.com" required>
+      </div>
+
+      <div class="col-md-4">
+        <label for="eventDate" class="form-label">Preferred Date</label>
+        <input type="date" class="form-control" id="eventDate" required>
+      </div>
+
+      <div class="col-md-4">
+        <label for="eventType" class="form-label">Event Type</label>
+        <select class="form-select" id="eventType" required>
+          <option value="">Choose...</option>
+          <option value="10">Tech Meetup ($10)</option>
+          <option value="25">AI &amp; ML Conference ($25)</option>
+          <option value="0">Frontend Bootcamp (Free)</option>
+        </select>
+      </div>
+
+      <div class="col-md-4">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input type="tel" class="form-control" id="phone" placeholder="10-digit number">
+        <div id="phoneFeedback" class="form-text"></div>
+      </div>
+
+      <div class="col-12">
+        <label for="message" class="form-label">Message / Feedback</label>
+        <textarea class="form-control" id="message" rows="3" placeholder="Type something..."></textarea>
+        <div id="charCount" class="form-text">0 characters</div>
+      </div>
+
+      <div class="col-12 form-check">
+        <input class="form-check-input" type="checkbox" id="agree" required>
+        <label class="form-check-label" for="agree">I agree to the terms and conditions</label>
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary" id="registerBtn">Register</button>
+        <output id="confirmationOutput" class="ms-3 text-success fw-bold"></output>
+      </div>
+    </form>
+
+    <!-- form-floating login example -->
+    <div class="mt-5">
+      <h5>Returning User Login</h5>
+      <form class="row g-2">
+        <div class="col-md-4 form-floating">
+          <input type="email" class="form-control" id="floatingEmail" placeholder="name@example.com">
+          <label for="floatingEmail">Email address</label>
+        </div>
+        <div class="col-md-4 form-floating">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <div class="col-md-4 d-flex align-items-center">
+          <button class="btn btn-outline-primary" type="button">Log in</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============ BUTTONS SHOWCASE (Bootstrap Ex.9) ============ -->
+  <section class="container py-5">
+    <h2 class="section-title">UI Components: Buttons</h2>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-success">Success</button>
+      <button class="btn btn-danger">Danger</button>
+      <button class="btn btn-warning">Warning</button>
+      <button class="btn btn-info">Info</button>
+      <button class="btn btn-outline-primary">Outline Primary</button>
+      <button class="btn btn-outline-danger">Outline Danger</button>
+    </div>
+
+    <div class="btn-group mb-3" role="group" aria-label="View toggle">
+      <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+      <label class="btn btn-outline-primary" for="btncheck1"><i class="bi bi-grid"></i> Grid</label>
+
+      <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+      <label class="btn btn-outline-primary" for="btncheck2"><i class="bi bi-list"></i> List</label>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-outline-secondary" title="Share"><i class="bi bi-share"></i></button>
+      <button class="btn btn-outline-secondary" title="Like"><i class="bi bi-heart"></i></button>
+      <button class="btn btn-outline-secondary" title="Bookmark"><i class="bi bi-bookmark"></i></button>
+    </div>
+  </section>
+
+  <!-- ============ ACCORDION & MODAL (Bootstrap Ex.18) ============ -->
+  <section class="container py-5">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+
+    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#infoModal">
+      <i class="bi bi-info-circle"></i> About this Portal
+    </button>
+
+    <div class="accordion" id="faqAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+            How do I register for an event?
+          </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Use the registration form above, fill in your details, and click "Register".
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+            Can I cancel my registration?
+          </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Yes, contact the event organizer using the details on the event card.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+            How do I leave feedback?
+          </button>
+        </h2>
+        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+          <div class="accordion-body">
+            Scroll down to the Feedback section and use the jQuery-powered widgets to interact.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal fade" id="infoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">About the Community Portal</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>This portal helps residents discover, register for, and review local community events.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ jQUERY PLAYGROUND (jQuery Exercises 2-6) ============ -->
+  <section id="feedback" class="container py-5">
+    <h2 class="section-title">Interactive Feedback Widgets (jQuery)</h2>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <h5 id="jqHeading">Tell us what you think!</h5>
+        <p class="jqPara">This paragraph can be hidden.</p>
+        <p class="jqPara">This is a second paragraph.</p>
+        <button id="jqBtn" class="btn btn-outline-primary">Change Heading &amp; Hide a Paragraph</button>
+      </div>
+
+      <div class="col-md-6">
+        <div class="d-flex gap-2 flex-wrap mb-2">
+          <div class="box bg-primary"></div>
+          <div class="box bg-success"></div>
+          <div class="box bg-warning"></div>
+        </div>
+        <div class="d-flex gap-2 flex-wrap">
+          <button class="btn btn-sm btn-outline-dark" id="hideBoxes">Hide</button>
+          <button class="btn btn-sm btn-outline-dark" id="showBoxes">Show</button>
+          <button class="btn btn-sm btn-outline-dark" id="fadeOutBoxes">Fade Out</button>
+          <button class="btn btn-sm btn-outline-dark" id="fadeInBoxes">Fade In</button>
+          <button class="btn btn-sm btn-outline-dark" id="toggleBoxes">Toggle</button>
+          <button class="btn btn-sm btn-outline-dark" id="slideBoxes">Slide Up/Down (chained)</button>
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <h6>Add items to a list</h6>
+        <div class="input-group mb-2">
+          <input type="text" id="itemInput" class="form-control" placeholder="Enter an item">
+          <button class="btn btn-primary" id="addItemBtn">Add</button>
+          <button class="btn btn-danger" id="removeAllBtn">Remove All</button>
+        </div>
+        <ul id="itemList" class="list-group"></ul>
+      </div>
+
+      <div class="col-md-6">
+        <h6>Color box &amp; events</h6>
+        <button id="colorBtn" class="btn btn-secondary mb-2">Turn box Red</button>
+        <div id="colorBox" class="border rounded p-4 text-center" style="background:white;" ondblclick="">
+          Double-click to reset to white
+        </div>
+
+        <div class="mt-3 p-3 border rounded" id="hoverDiv">
+          Hover over me, click me, double-click me!
+        </div>
+
+        <input type="text" id="keypressInput" class="form-control mt-2" placeholder="Type to trigger keypress event">
+        <small id="keypressOutput" class="text-muted"></small>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIDEO INVITE (HTML5 Ex.7) ============ -->
+  <section class="container py-5">
+    <h2 class="section-title">Event Promo Video</h2>
+    <video id="promoVideo" width="100%" style="max-width:480px" controls>
+      <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p id="videoStatus" class="text-muted mt-2"></p>
+  </section>
+
+  <!-- ============ GEOLOCATION (HTML5 Ex.9) ============ -->
+  <section id="geo" class="container py-5">
+    <h2 class="section-title">Find Nearby Events</h2>
+    <button id="findNearbyBtn" class="btn btn-success"><i class="bi bi-geo-alt"></i> Find Nearby Events</button>
+    <p id="geoResult" class="mt-3"></p>
+  </section>
+
+  <!-- ============ PREFERENCES (HTML5 Ex.8, localStorage/sessionStorage) ============ -->
+  <section class="container py-5">
+    <h2 class="section-title">Save My Preferences</h2>
+    <div class="row g-2 align-items-end">
+      <div class="col-auto">
+        <label for="prefEventType" class="form-label">Preferred Event Type</label>
+        <select id="prefEventType" class="form-select">
+          <option value="Tech">Tech</option>
+          <option value="Music">Music</option>
+          <option value="Workshop">Workshop</option>
+        </select>
+      </div>
+      <div class="col-auto">
+        <button id="savePrefBtn" class="btn btn-primary">Save Preference</button>
+        <button id="clearPrefBtn" class="btn btn-outline-danger">Clear Preferences</button>
+      </div>
+      <div class="col-auto">
+        <span id="prefStatus" class="text-muted"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ POSITIONING DEMO (Bootstrap Ex.16) ============ -->
+  <section class="container py-5">
+    <h2 class="section-title">Positioning Demo</h2>
+    <div class="position-relative d-inline-block">
+      <img src="https://placehold.co/250x150?text=Event+Badge+Demo" alt="Demo" class="img-fluid rounded">
+      <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">New</span>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER / CONTACT (HTML5 Ex.2, Bootstrap icons) ============ -->
+  <footer id="contact" class="bg-dark text-white py-4 mt-4 position-relative">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <p class="mb-0">&copy; 2026 Local Community Event Portal. All rights reserved.</p>
+      <div class="d-flex gap-3 mt-2 mt-md-0">
+        <a href="#" class="text-white" title="Facebook"><i class="bi bi-facebook fs-5"></i></a>
+        <a href="#" class="text-white" title="Twitter"><i class="bi bi-twitter-x fs-5"></i></a>
+        <a href="#" class="text-white" title="Instagram"><i class="bi bi-instagram fs-5"></i></a>
+        <a href="#" class="text-white" title="LinkedIn"><i class="bi bi-linkedin fs-5"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============ SCRIPTS ============ -->
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <!-- Bootstrap Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- App JS -->
+  <script src="js/main.js"></script>
+  <script src="js/jquery-demo.js"></script>
+
+  <!-- Exercise: warn before leaving page if form is partially filled -->
+  <script>
+    window.onbeforeunload = function () {
+      const name = document.getElementById('fullName')?.value;
+      if (name && name.trim().length > 0) {
+        return "You have unsaved registration info. Are you sure you want to leave?";
+      }
+    };
+  </script>
+</body>
+</html>
