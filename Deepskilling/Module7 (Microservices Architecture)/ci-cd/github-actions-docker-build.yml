@@ -1,0 +1,82 @@
+name: Build and Push Microservices
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAMESPACE: your-org/module7-microservices
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [ CatalogService, OrdersService, ApiGateway ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore
+        run: dotnet restore src/${{ matrix.service }}/${{ matrix.service }}.csproj
+
+      - name: Build
+        run: dotnet build src/${{ matrix.service }}/${{ matrix.service }}.csproj --no-restore --configuration Release
+
+  build-and-push-images:
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - service: CatalogService
+            image: catalog-service
+          - service: OrdersService
+            image: orders-service
+          - service: ApiGateway
+            image: api-gateway
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push image
+        uses: docker/build-push-action@v5
+        with:
+          context: src/${{ matrix.service }}
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ matrix.image }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAMESPACE }}/${{ matrix.image }}:latest
+
+  deploy:
+    needs: build-and-push-images
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Apply Kubernetes manifests (rolling update)
+        run: |
+          kubectl apply -f k8s/catalog-service.yaml
+          kubectl apply -f k8s/orders-service.yaml
+          kubectl apply -f k8s/api-gateway.yaml
+          kubectl rollout status deployment/catalog-service
+          kubectl rollout status deployment/orders-service
+          kubectl rollout status deployment/api-gateway
