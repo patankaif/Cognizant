@@ -1,0 +1,40 @@
+<div class="login-page">
+  <h1>Log In</h1>
+
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+    <label>
+      Username
+      <input
+        type="text"
+        name="username"
+        [(ngModel)]="username"
+        #usernameField="ngModel"
+        required
+      />
+      <span class="field-error" *ngIf="usernameField.invalid && usernameField.touched">
+        Username is required.
+      </span>
+    </label>
+
+    <label>
+      Password
+      <input
+        type="password"
+        name="password"
+        [(ngModel)]="password"
+        #passwordField="ngModel"
+        required
+        minlength="6"
+      />
+      <span class="field-error" *ngIf="passwordField.invalid && passwordField.touched">
+        Password must be at least 6 characters.
+      </span>
+    </label>
+
+    <p class="field-error" *ngIf="loginFailed">Invalid username or password.</p>
+
+    <button type="submit" [disabled]="loginForm.invalid">Log In</button>
+  </form>
+
+  <p class="hint">Try admin / Admin@123 or reader / Reader@123</p>
+</div>

@@ -1,0 +1,55 @@
+<div class="book-form-page">
+  <h1>Add a Book</h1>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label>
+      Title
+      <input type="text" formControlName="title" />
+      <span class="field-error" *ngIf="f.title.invalid && f.title.touched">
+        Title is required (max 300 characters).
+      </span>
+    </label>
+
+    <label>
+      Author
+      <input type="text" formControlName="author" />
+      <span class="field-error" *ngIf="f.author.invalid && f.author.touched">
+        Author is required (max 150 characters).
+      </span>
+    </label>
+
+    <label>
+      Genre
+      <select formControlName="genre">
+        <option value="Fiction">Fiction</option>
+        <option value="Science Fiction">Science Fiction</option>
+        <option value="Non-Fiction">Non-Fiction</option>
+      </select>
+    </label>
+
+    <label>
+      Published Year
+      <input type="number" formControlName="publishedYear" />
+      <span class="field-error" *ngIf="f.publishedYear.errors?.['min'] && f.publishedYear.touched">
+        Year must be 1450 or later.
+      </span>
+      <span class="field-error" *ngIf="f.publishedYear.errors?.['futureYear'] && f.publishedYear.touched">
+        Year cannot be in the future.
+      </span>
+    </label>
+
+    <label>
+      Price
+      <input type="number" step="0.01" formControlName="price" />
+      <span class="field-error" *ngIf="f.price.invalid && f.price.touched">
+        Price must be zero or greater.
+      </span>
+    </label>
+
+    <p class="submit-error" *ngIf="submitError">{{ submitError }}</p>
+
+    <button type="submit" [disabled]="submitting">
+      {{ submitting ? 'Saving...' : 'Save Book' }}
+    </button>
+  </form>
+</div>

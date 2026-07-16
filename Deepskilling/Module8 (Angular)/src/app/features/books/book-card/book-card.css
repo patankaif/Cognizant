@@ -1,0 +1,41 @@
+.book-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease-in-out;
+}
+
+.book-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.book-card h3 {
+  margin: 0 0 0.25rem 0;
+}
+
+.author {
+  color: #555;
+  margin: 0 0 0.25rem 0;
+}
+
+.genre {
+  display: inline-block;
+  font-size: 0.75rem;
+  background: #eee;
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+}
+
+.price {
+  font-weight: 600;
+}
+
+.actions {
+  margin-top: 0.5rem;
+}
+
+.change-count {
+  color: #999;
+}
