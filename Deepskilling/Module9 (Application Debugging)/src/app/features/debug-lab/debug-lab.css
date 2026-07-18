@@ -1,0 +1,47 @@
+.debug-lab-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.exercise {
+  margin-bottom: 0.75rem;
+}
+
+button {
+  padding: 0.5rem 0.9rem;
+  border-radius: 6px;
+  border: 1px solid #1a73e8;
+  background: #fff;
+  color: #1a73e8;
+  cursor: pointer;
+}
+
+button.clear {
+  border-color: #b00020;
+  color: #b00020;
+  margin: 1rem 0;
+}
+
+.async-result {
+  margin-top: 0.4rem;
+  font-family: monospace;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+tr.mismatch td {
+  color: #b00020;
+  font-weight: 600;
+}

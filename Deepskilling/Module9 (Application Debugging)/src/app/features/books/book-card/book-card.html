@@ -1,0 +1,16 @@
+<div class="book-card" appHighlight="#e8f4ff" (click)="onSelect()">
+  <h3>{{ book.title }}</h3>
+  <p class="author">{{ book.author }}, {{ book.publishedYear }}</p>
+  <p class="genre" *ngIf="book.genre">{{ book.genre }}</p>
+  <p class="description">{{ ('A book by ' + book.author) | truncate: 30 }}</p>
+  <p class="price">{{ book.price | currency }}</p>
+
+  <div class="actions">
+    <button type="button" (click)="onToggleFavorite($event)">
+      {{ isFavorite ? '\u2605 Favorited' : '\u2606 Add to Favorites' }}
+    </button>
+    <button type="button" *ngIf="showActions" (click)="onRemove($event)">Delete</button>
+  </div>
+
+  <small class="change-count">renders since input changed: {{ changeCount }}</small>
+</div>

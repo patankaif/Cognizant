@@ -1,0 +1,14 @@
+<div class="favorites-page">
+  <h1>My Favorites</h1>
+
+  <ng-container *ngIf="favoriteBooks$ | async as books">
+    <p *ngIf="books.length === 0">You haven't favorited any books yet.</p>
+
+    <ul>
+      <li *ngFor="let book of books">
+        <span>{{ book.title }} by {{ book.author }}</span>
+        <button type="button" (click)="removeFromFavorites(book.id)">Remove</button>
+      </li>
+    </ul>
+  </ng-container>
+</div>

@@ -1,0 +1,51 @@
+<div class="debug-lab-page">
+  <h1>Debugging Lab</h1>
+  <p>
+    Each button below runs a small piece of code that has a real bug in it.
+    Open Chrome DevTools (F12) or attach the VS Code debugger, set a
+    breakpoint inside the corresponding function in
+    <code>buggy-utils.ts</code> or <code>debug-lab.ts</code>, click the
+    button, and step through to find the mismatch between Expected and
+    Actual. See <code>DEBUGGING_GUIDE.md</code> for the full walkthrough.
+  </p>
+
+  <div class="exercise">
+    <button type="button" (click)="runPaginationExercise()">Run Exercise 1: Pagination</button>
+  </div>
+
+  <div class="exercise">
+    <button type="button" (click)="runDiscountExercise()">Run Exercise 2: Discount Math</button>
+  </div>
+
+  <div class="exercise">
+    <button type="button" (click)="runFindByIdExercise()">Run Exercise 3: Find Book By Id</button>
+  </div>
+
+  <div class="exercise">
+    <button type="button" (click)="runAveragePriceExercise()">Run Exercise 4: Average Price (Empty List)</button>
+  </div>
+
+  <div class="exercise">
+    <button type="button" (click)="runAsyncTimingExercise()">Run Exercise 5: Async Timing Bug</button>
+    <p class="async-result" *ngIf="asyncBugMessage">{{ asyncBugMessage }}</p>
+  </div>
+
+  <button type="button" class="clear" (click)="clearResults()" *ngIf="results.length">Clear Results</button>
+
+  <table *ngIf="results.length">
+    <thead>
+      <tr>
+        <th>Exercise</th>
+        <th>Expected</th>
+        <th>Actual</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let result of results" [class.mismatch]="result.expected !== result.actual">
+        <td>{{ result.title }}</td>
+        <td>{{ result.expected }}</td>
+        <td>{{ result.actual }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

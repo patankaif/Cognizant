@@ -1,0 +1,27 @@
+.favorites-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+button {
+  background: none;
+  border: 1px solid #b00020;
+  color: #b00020;
+  border-radius: 4px;
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+}

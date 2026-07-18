@@ -1,0 +1,22 @@
+<nav class="app-nav">
+  <a routerLink="/books" routerLinkActive="active">Books</a>
+  <a routerLink="/favorites" routerLinkActive="active">
+    Favorites <span *ngIf="(favoriteCount$ | async) as count">({{ count }})</span>
+  </a>
+  <a routerLink="/debug-lab" routerLinkActive="active">Debug Lab</a>
+
+  <span class="spacer"></span>
+
+  <ng-container *ngIf="authService.isLoggedIn(); else loggedOut">
+    <span class="user">{{ authService.currentUser()?.username }} ({{ authService.currentUser()?.role }})</span>
+    <button type="button" (click)="logout()">Log Out</button>
+  </ng-container>
+
+  <ng-template #loggedOut>
+    <a routerLink="/login" routerLinkActive="active">Log In</a>
+  </ng-template>
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>

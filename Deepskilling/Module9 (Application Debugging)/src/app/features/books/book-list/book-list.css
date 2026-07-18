@@ -1,0 +1,30 @@
+.book-list-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-book-link {
+  text-decoration: none;
+  background: #1a73e8;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+}
+
+.search-box {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 1rem 0;
+  box-sizing: border-box;
+}
+
+.error {
+  color: #b00020;
+}

@@ -1,0 +1,14 @@
+<div class="book-detail-page" *ngIf="book$ | async as book">
+  <a routerLink="/books">&larr; Back to catalog</a>
+
+  <h1>{{ book.title }}</h1>
+  <p>{{ book.author }} &middot; {{ book.publishedYear }}</p>
+  <p class="price">{{ book.price | currency }}</p>
+
+  <p [ngSwitch]="priceTier(book.price)">
+    <span *ngSwitchCase="'budget'">Budget-friendly pick.</span>
+    <span *ngSwitchCase="'standard'">Standard pricing for this genre.</span>
+    <span *ngSwitchCase="'premium'">Premium edition.</span>
+    <span *ngSwitchDefault>Price information unavailable.</span>
+  </p>
+</div>
