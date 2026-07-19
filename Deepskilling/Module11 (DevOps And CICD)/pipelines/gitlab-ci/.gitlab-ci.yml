@@ -1,0 +1,52 @@
+stages:
+  - install
+  - test
+  - build
+  - deploy
+
+variables:
+  NODE_VERSION: "22"
+
+default:
+  image: node:22
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - Module8-Angular/node_modules/
+  before_script:
+    - cd Module8-Angular
+
+install_dependencies:
+  stage: install
+  script:
+    - npm ci
+  artifacts:
+    paths:
+      - Module8-Angular/node_modules/
+    expire_in: 1 hour
+
+run_unit_tests:
+  stage: test
+  needs: [ "install_dependencies" ]
+  script:
+    - npx ng test --watch=false --browsers=ChromeHeadless
+
+build_production:
+  stage: build
+  needs: [ "run_unit_tests" ]
+  script:
+    - npx ng build --configuration production
+  artifacts:
+    paths:
+      - Module8-Angular/dist/
+    expire_in: 1 week
+
+deploy_production:
+  stage: deploy
+  needs: [ "build_production" ]
+  script:
+    - echo "Deploy dist/ to your hosting target here (Azure Static Web Apps, S3, Nginx container, etc.)"
+  environment:
+    name: production
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'

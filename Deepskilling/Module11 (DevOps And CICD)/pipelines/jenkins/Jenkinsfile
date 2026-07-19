@@ -1,0 +1,76 @@
+pipeline {
+    agent any
+
+    tools {
+        dotnet 'dotnet-sdk-8'
+    }
+
+    environment {
+        SOLUTION = 'Module4-NUnitAndMoq/Module4NUnitAndMoq.sln'
+        CONFIGURATION = 'Release'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Restore') {
+            steps {
+                sh "dotnet restore ${SOLUTION}"
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh "dotnet build ${SOLUTION} --no-restore --configuration ${CONFIGURATION}"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh """
+                    dotnet test ${SOLUTION} \
+                        --no-build --configuration ${CONFIGURATION} \
+                        --logger \"trx;LogFileName=test-results.trx\" \
+                        --collect:\"XPlat Code Coverage\"
+                """
+            }
+            post {
+                always {
+                    mstest testResultsFile: '**/test-results.trx', keepLongStdio: true
+                }
+            }
+        }
+
+        stage('Publish Artifact') {
+            when {
+                branch 'main'
+            }
+            steps {
+                sh "dotnet publish ${SOLUTION} --no-build --configuration ${CONFIGURATION} --output publish/"
+                archiveArtifacts artifacts: 'publish/**', fingerprint: true
+            }
+        }
+
+        stage('Deploy') {
+            when {
+                branch 'main'
+            }
+            steps {
+                echo 'Deploy publish/ to the target environment here (IIS, a container registry, Azure App Service, etc.)'
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+        failure {
+            echo 'Pipeline failed - notify the team (Slack/Teams/email webhook goes here).'
+        }
+    }
+}

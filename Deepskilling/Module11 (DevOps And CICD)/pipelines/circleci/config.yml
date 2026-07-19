@@ -1,0 +1,49 @@
+version: 2.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:8.0
+    working_directory: ~/project
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dotnet-packages-{{ checksum "Module4-NUnitAndMoq/Module4NUnitAndMoq.sln" }}
+      - run:
+          name: Restore dependencies
+          command: dotnet restore Module4-NUnitAndMoq/Module4NUnitAndMoq.sln
+      - save_cache:
+          key: dotnet-packages-{{ checksum "Module4-NUnitAndMoq/Module4NUnitAndMoq.sln" }}
+          paths:
+            - ~/.nuget/packages
+      - run:
+          name: Build
+          command: dotnet build Module4-NUnitAndMoq/Module4NUnitAndMoq.sln --no-restore --configuration Release
+      - run:
+          name: Run tests
+          command: >
+            dotnet test Module4-NUnitAndMoq/Module4NUnitAndMoq.sln
+            --no-build --configuration Release
+            --logger "trx;LogFileName=test-results.trx"
+      - store_test_results:
+          path: Module4-NUnitAndMoq/tests
+
+  deploy:
+    docker:
+      - image: cimg/base:2024.01
+    steps:
+      - run:
+          name: Deploy
+          command: echo "Deploy the published output to your target environment here."
+
+workflows:
+  build-test-deploy:
+    jobs:
+      - build-and-test
+      - deploy:
+          requires:
+            - build-and-test
+          filters:
+            branches:
+              only: main

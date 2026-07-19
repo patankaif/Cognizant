@@ -1,0 +1,61 @@
+name: Angular CI/CD - Module8 Angular
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "Module8-Angular/**"
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "Module8-Angular/**"
+
+defaults:
+  run:
+    working-directory: Module8-Angular
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: Module8-Angular/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests (headless Chrome)
+        run: npx ng test --watch=false --browsers=ChromeHeadless
+
+      - name: Build production bundle
+        run: npx ng build --configuration production
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: angular-dist
+          path: Module8-Angular/dist/
+
+  deploy:
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: angular-dist
+          path: dist/
+
+      - name: Deploy static site
+        run: echo "Deploy dist/ to your hosting target here (Azure Static Web Apps, S3, Nginx container, etc.)"

@@ -1,0 +1,51 @@
+name: .NET CI - Module4 NUnit and Moq
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - "Module4-NUnitAndMoq/**"
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - "Module4-NUnitAndMoq/**"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore Module4-NUnitAndMoq/Module4NUnitAndMoq.sln
+
+      - name: Build
+        run: dotnet build Module4-NUnitAndMoq/Module4NUnitAndMoq.sln --no-restore --configuration Release
+
+      - name: Run tests
+        run: >
+          dotnet test Module4-NUnitAndMoq/Module4NUnitAndMoq.sln
+          --no-build --configuration Release
+          --logger "trx;LogFileName=test-results.trx"
+          --collect:"XPlat Code Coverage"
+
+      - name: Publish test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: "**/test-results.trx"
+
+      - name: Publish code coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: code-coverage
+          path: "**/coverage.cobertura.xml"
