@@ -1,0 +1,12 @@
+day,ideal_remaining_points,actual_remaining_points,note
+0,9.0,9,Sprint start
+1,8.1,9,In progress on US-202
+2,7.2,8,US-202 (1pt) done
+3,6.3,8,In progress on US-103
+4,5.4,6,US-103 (2pt) done
+5,4.5,6,Working on US-101
+6,3.6,6,Blocked - flagged in Daily Scrum
+7,2.7,3,Blocker resolved; US-101 (3pt) done
+8,1.8,3,In progress on US-102
+9,0.9,3,In progress on US-102
+10,0.0,0,US-102 (3pt) done - sprint complete
